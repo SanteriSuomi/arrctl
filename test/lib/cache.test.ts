@@ -2,7 +2,7 @@ import { existsSync, rmSync } from "node:fs"
 import { homedir } from "node:os"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { ConfigCache } from "../../src/lib/cache.js"
+import { ConfigCache } from "../../src/lib/cache"
 
 describe("ConfigCache", () => {
 	const testCacheDir = join(homedir(), ".config", "arrctl", "cache")

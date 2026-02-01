@@ -1,6 +1,6 @@
 import { Args, Command } from "@oclif/core"
 
-import { configCache } from "../../lib/cache.js"
+import { configCache } from "../../lib/cache"
 
 export default class CacheClear extends Command {
 	static args = {

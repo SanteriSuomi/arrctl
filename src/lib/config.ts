@@ -1,6 +1,7 @@
 import Conf from "conf"
 
-import type { AppConfig, ArrConfig } from "./types.js"
+import { RADARR_DEFAULT_URL, SONARR_DEFAULT_URL } from "./constants"
+import type { AppConfig, ArrConfig } from "./types"
 
 const config = new Conf<AppConfig>({
 	projectName: "arrctl",
@@ -18,7 +19,7 @@ export function setConfig(app: keyof AppConfig, value: ArrConfig): void {
 export function requireConfig(app: keyof AppConfig): ArrConfig {
 	const cfg = getConfig(app)
 	if (!cfg) {
-		const example = app === "radarr" ? "http://localhost:7878" : "http://localhost:8989"
+		const example = app === "radarr" ? RADARR_DEFAULT_URL : SONARR_DEFAULT_URL
 		console.error(`${app.charAt(0).toUpperCase() + app.slice(1)} is not configured. Run:
 
   arrctl ${app} config set --url <URL> --api-key <API_KEY>

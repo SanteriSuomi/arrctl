@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-import { RadarrClient } from "../../../src/lib/radarr/client.js"
+import { RadarrClient } from "../../../src/lib/radarr/client"
 
 describe("RadarrClient Config Methods", () => {
 	const mockConfig = { url: "http://localhost:7878", apiKey: "test-api-key" }

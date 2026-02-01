@@ -18,6 +18,7 @@
 		"@types/node": "^18",
 		"oclif": "^4",
 		"shx": "^0.3.3",
+		"tsdown": "^0.20.1",
 		"typescript": "^5",
 		"vitest": "^4.0.18"
 	},
@@ -65,7 +66,7 @@
 	},
 	"repository": "arrctl/arrctl",
 	"scripts": {
-		"build": "shx rm -rf dist && tsc -b",
+		"build": "tsdown",
 		"lint": "biome check",
 		"format": "biome check --write --unsafe",
 		"postpack": "shx rm -f oclif.manifest.json",
