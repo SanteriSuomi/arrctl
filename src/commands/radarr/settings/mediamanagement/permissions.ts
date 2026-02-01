@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsMediaManagementPermissions extends Command {
+export default class SettingsMediaManagementPermissions extends BaseSettingsCommand {
 	static description = "Linux permissions settings"
 
 	static examples = [
@@ -35,11 +35,7 @@ export default class SettingsMediaManagementPermissions extends Command {
 			flags["chown-group"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -57,10 +53,6 @@ export default class SettingsMediaManagementPermissions extends Command {
 
 		const result = await client.updateMediaManagementConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Permissions settings updated")
-		}
+		this.outputResult(result, "✓ Permissions settings updated", flags.json)
 	}
 }

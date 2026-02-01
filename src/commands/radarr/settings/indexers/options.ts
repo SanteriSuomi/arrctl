@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsIndexersOptions extends Command {
+export default class SettingsIndexersOptions extends BaseSettingsCommand {
 	static description = "Global indexer options"
 
 	static examples = [
@@ -52,11 +52,7 @@ export default class SettingsIndexersOptions extends Command {
 			flags["whitelisted-hardcoded-subs"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -79,10 +75,6 @@ export default class SettingsIndexersOptions extends Command {
 
 		const result = await client.updateIndexerConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Indexer options updated")
-		}
+		this.outputResult(result, "✓ Indexer options updated", flags.json)
 	}
 }

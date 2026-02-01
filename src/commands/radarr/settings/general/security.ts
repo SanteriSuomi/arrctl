@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsGeneralSecurity extends Command {
+export default class SettingsGeneralSecurity extends BaseSettingsCommand {
 	static description = "Security settings (authentication, certificate validation)"
 
 	static examples = [
@@ -45,11 +45,7 @@ export default class SettingsGeneralSecurity extends Command {
 			flags["certificate-validation"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -75,10 +71,6 @@ export default class SettingsGeneralSecurity extends Command {
 
 		const result = await client.updateHostConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Security settings updated")
-		}
+		this.outputResult(result, "✓ Security settings updated", flags.json)
 	}
 }

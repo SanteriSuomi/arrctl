@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsUiStyle extends Command {
+export default class SettingsUiStyle extends BaseSettingsCommand {
 	static description = "Style settings (theme, color-impaired mode)"
 
 	static examples = [
@@ -34,11 +34,7 @@ export default class SettingsUiStyle extends Command {
 		const hasChanges = flags.theme !== undefined || flags["color-impaired-mode"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -53,10 +49,6 @@ export default class SettingsUiStyle extends Command {
 
 		const result = await client.updateUiConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Style settings updated")
-		}
+		this.outputResult(result, "✓ Style settings updated", flags.json)
 	}
 }

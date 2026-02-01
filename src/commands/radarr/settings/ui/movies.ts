@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsUiMovies extends Command {
+export default class SettingsUiMovies extends BaseSettingsCommand {
 	static description = "Movies UI settings"
 
 	static examples = [
@@ -29,11 +29,7 @@ export default class SettingsUiMovies extends Command {
 		const hasChanges = flags["runtime-format"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -45,10 +41,6 @@ export default class SettingsUiMovies extends Command {
 
 		const result = await client.updateUiConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Movies UI settings updated")
-		}
+		this.outputResult(result, "✓ Movies UI settings updated", flags.json)
 	}
 }

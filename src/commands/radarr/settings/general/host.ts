@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsGeneralHost extends Command {
+export default class SettingsGeneralHost extends BaseSettingsCommand {
 	static description = "Host settings (bind address, port, SSL, URL base, instance name)"
 
 	static examples = [
@@ -40,11 +40,7 @@ export default class SettingsGeneralHost extends Command {
 			flags["application-url"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -60,10 +56,6 @@ export default class SettingsGeneralHost extends Command {
 
 		const result = await client.updateHostConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Host settings updated (restart may be required)")
-		}
+		this.outputResult(result, "✓ Host settings updated (restart may be required)", flags.json)
 	}
 }

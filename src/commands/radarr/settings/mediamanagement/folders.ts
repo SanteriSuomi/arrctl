@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsMediaManagementFolders extends Command {
+export default class SettingsMediaManagementFolders extends BaseSettingsCommand {
 	static description = "Folder creation/deletion settings"
 
 	static examples = [
@@ -34,11 +34,7 @@ export default class SettingsMediaManagementFolders extends Command {
 			flags["create-empty-folders"] !== undefined || flags["delete-empty-folders"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -53,10 +49,6 @@ export default class SettingsMediaManagementFolders extends Command {
 
 		const result = await client.updateMediaManagementConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Folder settings updated")
-		}
+		this.outputResult(result, "✓ Folder settings updated", flags.json)
 	}
 }

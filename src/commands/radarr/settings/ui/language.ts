@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsUiLanguage extends Command {
+export default class SettingsUiLanguage extends BaseSettingsCommand {
 	static description = "Language settings"
 
 	static examples = [
@@ -28,11 +28,7 @@ export default class SettingsUiLanguage extends Command {
 			flags["movie-info-language"] !== undefined || flags["ui-language"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -47,10 +43,6 @@ export default class SettingsUiLanguage extends Command {
 
 		const result = await client.updateUiConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Language settings updated (browser reload required)")
-		}
+		this.outputResult(result, "✓ Language settings updated (browser reload required)", flags.json)
 	}
 }

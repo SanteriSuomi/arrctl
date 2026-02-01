@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsMediaManagementFileManagement extends Command {
+export default class SettingsMediaManagementFileManagement extends BaseSettingsCommand {
 	static description = "File management settings"
 
 	static examples = [
@@ -57,11 +57,7 @@ export default class SettingsMediaManagementFileManagement extends Command {
 			flags["recycle-bin-cleanup"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -95,10 +91,6 @@ export default class SettingsMediaManagementFileManagement extends Command {
 
 		const result = await client.updateMediaManagementConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ File management settings updated")
-		}
+		this.outputResult(result, "✓ File management settings updated", flags.json)
 	}
 }

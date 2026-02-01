@@ -1,9 +1,9 @@
-import { Command, Flags } from "@oclif/core"
-
+import { Flags } from "@oclif/core"
+import { BaseSettingsCommand } from "../../../../lib/base-command.js"
 import { requireConfig } from "../../../../lib/config.js"
 import { RadarrClient } from "../../../../lib/radarr/client.js"
 
-export default class SettingsGeneralProxy extends Command {
+export default class SettingsGeneralProxy extends BaseSettingsCommand {
 	static description = "Proxy settings"
 
 	static examples = [
@@ -45,11 +45,7 @@ export default class SettingsGeneralProxy extends Command {
 			flags["bypass-local"] !== undefined
 
 		if (!hasChanges) {
-			if (flags.json) {
-				this.log(JSON.stringify(current, null, 2))
-			} else {
-				this.log("Use --help for usage information")
-			}
+			this.outputNoChanges(current, flags.json)
 			return
 		}
 
@@ -67,10 +63,6 @@ export default class SettingsGeneralProxy extends Command {
 
 		const result = await client.updateHostConfig(updated)
 
-		if (flags.json) {
-			this.log(JSON.stringify(result, null, 2))
-		} else {
-			this.log("✓ Proxy settings updated")
-		}
+		this.outputResult(result, "✓ Proxy settings updated", flags.json)
 	}
 }
