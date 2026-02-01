@@ -1,6 +1,7 @@
 import { Command } from "@oclif/core"
 
-import { getConfig } from "../../../lib/config.js"
+import { getConfig } from "../../../lib/config"
+import { RADARR_DEFAULT_URL } from "../../../lib/constants"
 
 export default class RadarrConfigShow extends Command {
 	static description = "Show Radarr configuration"
@@ -17,7 +18,7 @@ export default class RadarrConfigShow extends Command {
   arrctl radarr config set --url <URL> --api-key <API_KEY>
 
 Example:
-  arrctl radarr config set --url http://localhost:7878 --api-key abc123`)
+  arrctl radarr config set --url ${RADARR_DEFAULT_URL} --api-key abc123`)
 			return
 		}
 

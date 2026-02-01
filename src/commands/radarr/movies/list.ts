@@ -1,9 +1,9 @@
 import { Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../../lib/config.js"
-import { formatSize, formatTable } from "../../../lib/format.js"
-import { RadarrClient } from "../../../lib/radarr/client.js"
-import type { MovieResource } from "../../../lib/radarr/types.js"
+import { requireConfig } from "../../../lib/config"
+import { formatSize, formatTable } from "../../../lib/format"
+import { RadarrClient } from "../../../lib/radarr/client"
+import type { MovieResource } from "../../../lib/radarr/types"
 
 export default class RadarrMoviesList extends Command {
 	static description = "List movies in library"

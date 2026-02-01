@@ -1,7 +1,7 @@
 import { Args, Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../../lib/config.js"
-import { RadarrClient } from "../../../lib/radarr/client.js"
+import { requireConfig } from "../../../lib/config"
+import { RadarrClient } from "../../../lib/radarr/client"
 
 export default class RadarrMoviesDelete extends Command {
 	static args = {

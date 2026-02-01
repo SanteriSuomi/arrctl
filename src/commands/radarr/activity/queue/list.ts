@@ -1,15 +1,15 @@
 import { Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../../lib/config.js"
-import { formatSize, formatTable } from "../../../lib/format.js"
-import { RadarrClient } from "../../../lib/radarr/client.js"
+import { requireConfig } from "../../../../lib/config"
+import { formatSize, formatTable } from "../../../../lib/format"
+import { RadarrClient } from "../../../../lib/radarr/client"
 
-export default class RadarrActivityQueue extends Command {
+export default class RadarrActivityQueueList extends Command {
 	static description = "Show download queue"
 
 	static examples = [
-		"<%= config.bin %> radarr activity queue",
-		"<%= config.bin %> radarr activity queue --page 2 --page-size 50",
+		"<%= config.bin %> radarr activity queue list",
+		"<%= config.bin %> radarr activity queue list --page 2 --page-size 50",
 	]
 
 	static flags = {
@@ -19,7 +19,7 @@ export default class RadarrActivityQueue extends Command {
 	}
 
 	async run(): Promise<void> {
-		const { flags } = await this.parse(RadarrActivityQueue)
+		const { flags } = await this.parse(RadarrActivityQueueList)
 		const config = requireConfig("radarr")
 		const client = new RadarrClient(config)
 

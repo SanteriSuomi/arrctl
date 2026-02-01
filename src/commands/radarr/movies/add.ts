@@ -1,8 +1,8 @@
 import { Args, Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../../lib/config.js"
-import { RadarrClient } from "../../../lib/radarr/client.js"
-import type { AddMoviePayload } from "../../../lib/radarr/types.js"
+import { requireConfig } from "../../../lib/config"
+import { RadarrClient } from "../../../lib/radarr/client"
+import type { AddMoviePayload } from "../../../lib/radarr/types"
 
 export default class RadarrMoviesAdd extends Command {
 	static args = {

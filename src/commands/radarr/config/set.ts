@@ -1,12 +1,13 @@
 import { Command, Flags } from "@oclif/core"
 
-import { setConfig } from "../../../lib/config.js"
+import { setConfig } from "../../../lib/config"
+import { RADARR_DEFAULT_URL } from "../../../lib/constants"
 
 export default class RadarrConfigSet extends Command {
 	static description = "Configure Radarr connection"
 
 	static examples = [
-		"<%= config.bin %> radarr config set --url http://localhost:7878 --api-key abc123",
+		`<%= config.bin %> radarr config set --url ${RADARR_DEFAULT_URL} --api-key abc123`,
 	]
 
 	static flags = {

@@ -1,15 +1,15 @@
 import { Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../../lib/config.js"
-import { formatTable } from "../../../lib/format.js"
-import { RadarrClient } from "../../../lib/radarr/client.js"
+import { requireConfig } from "../../../../lib/config"
+import { formatTable } from "../../../../lib/format"
+import { RadarrClient } from "../../../../lib/radarr/client"
 
-export default class RadarrActivityBlocklist extends Command {
+export default class RadarrActivityBlocklistList extends Command {
 	static description = "Show blocked releases"
 
 	static examples = [
-		"<%= config.bin %> radarr activity blocklist",
-		"<%= config.bin %> radarr activity blocklist --page 2 --page-size 50",
+		"<%= config.bin %> radarr activity blocklist list",
+		"<%= config.bin %> radarr activity blocklist list --page 2 --page-size 50",
 	]
 
 	static flags = {
@@ -19,7 +19,7 @@ export default class RadarrActivityBlocklist extends Command {
 	}
 
 	async run(): Promise<void> {
-		const { flags } = await this.parse(RadarrActivityBlocklist)
+		const { flags } = await this.parse(RadarrActivityBlocklistList)
 		const config = requireConfig("radarr")
 		const client = new RadarrClient(config)
 

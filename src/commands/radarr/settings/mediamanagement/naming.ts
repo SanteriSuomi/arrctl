@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core"
-import { BaseSettingsCommand } from "../../../../lib/base-command.js"
-import { requireConfig } from "../../../../lib/config.js"
-import { RadarrClient } from "../../../../lib/radarr/client.js"
+import { BaseSettingsCommand } from "../../../../lib/base-command"
+import { requireConfig } from "../../../../lib/config"
+import { RadarrClient } from "../../../../lib/radarr/client"
 
 export default class SettingsMediaManagementNaming extends BaseSettingsCommand {
 	static description = "Movie naming settings"

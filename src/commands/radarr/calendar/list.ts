@@ -1,8 +1,8 @@
 import { Command, Flags } from "@oclif/core"
 
-import { requireConfig } from "../../lib/config.js"
-import { formatTable } from "../../lib/format.js"
-import { RadarrClient } from "../../lib/radarr/client.js"
+import { requireConfig } from "../../../lib/config"
+import { formatTable } from "../../../lib/format"
+import { RadarrClient } from "../../../lib/radarr/client"
 
 export default class RadarrCalendar extends Command {
 	static description = "Show upcoming/recent releases"
