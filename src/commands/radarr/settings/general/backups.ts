@@ -1,0 +1,54 @@
+import { Command, Flags } from "@oclif/core"
+
+import { requireConfig } from "../../../../lib/config.js"
+import { RadarrClient } from "../../../../lib/radarr/client.js"
+
+export default class SettingsGeneralBackups extends Command {
+	static description = "Backup settings"
+
+	static examples = [
+		"<%= config.bin %> radarr settings general backups --folder Backups",
+		"<%= config.bin %> radarr settings general backups --interval 7 --retention 28",
+	]
+
+	static flags = {
+		folder: Flags.string({ description: "Backup folder (relative to AppData)" }),
+		interval: Flags.integer({ description: "Backup interval in days (1-7)" }),
+		json: Flags.boolean({ description: "Output as JSON" }),
+		retention: Flags.integer({ description: "Backup retention in days (1-90)" }),
+	}
+
+	async run(): Promise<void> {
+		const { flags } = await this.parse(SettingsGeneralBackups)
+		const config = requireConfig("radarr")
+		const client = new RadarrClient(config)
+
+		const current = await client.getHostConfig()
+
+		const hasChanges =
+			flags.folder !== undefined || flags.interval !== undefined || flags.retention !== undefined
+
+		if (!hasChanges) {
+			if (flags.json) {
+				this.log(JSON.stringify(current, null, 2))
+			} else {
+				this.log("Use --help for usage information")
+			}
+			return
+		}
+
+		const updated = { ...current }
+
+		if (flags.folder !== undefined) updated.backupFolder = flags.folder
+		if (flags.interval !== undefined) updated.backupInterval = flags.interval
+		if (flags.retention !== undefined) updated.backupRetention = flags.retention
+
+		const result = await client.updateHostConfig(updated)
+
+		if (flags.json) {
+			this.log(JSON.stringify(result, null, 2))
+		} else {
+			this.log("✓ Backup settings updated")
+		}
+	}
+}

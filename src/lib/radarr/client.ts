@@ -4,13 +4,20 @@ import type {
 	AddMoviePayload,
 	BlocklistRecord,
 	DeleteMovieOptions,
+	DownloadClientConfig,
 	HistoryRecord,
+	HostConfig,
+	ImportListConfig,
+	IndexerConfig,
+	MediaManagementConfig,
 	MovieResource,
+	NamingConfig,
 	PaginatedResponse,
 	QualityProfile,
 	QueueRecord,
 	RootFolder,
 	Tag,
+	UiConfig,
 } from "./types.js"
 
 export class RadarrClient {
@@ -132,5 +139,84 @@ export class RadarrClient {
 
 	async getTags(): Promise<Tag[]> {
 		return configCache.getOrFetch("radarr", "tags", () => this.request<Tag[]>("/tag"))
+	}
+
+	// Config methods
+
+	async getNamingConfig(): Promise<NamingConfig> {
+		return this.request<NamingConfig>("/config/naming")
+	}
+
+	async updateNamingConfig(config: NamingConfig): Promise<NamingConfig> {
+		return this.request<NamingConfig>(`/config/naming/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getMediaManagementConfig(): Promise<MediaManagementConfig> {
+		return this.request<MediaManagementConfig>("/config/mediamanagement")
+	}
+
+	async updateMediaManagementConfig(config: MediaManagementConfig): Promise<MediaManagementConfig> {
+		return this.request<MediaManagementConfig>(`/config/mediamanagement/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getHostConfig(): Promise<HostConfig> {
+		return this.request<HostConfig>("/config/host")
+	}
+
+	async updateHostConfig(config: HostConfig): Promise<HostConfig> {
+		return this.request<HostConfig>(`/config/host/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getIndexerConfig(): Promise<IndexerConfig> {
+		return this.request<IndexerConfig>("/config/indexer")
+	}
+
+	async updateIndexerConfig(config: IndexerConfig): Promise<IndexerConfig> {
+		return this.request<IndexerConfig>(`/config/indexer/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getDownloadClientConfig(): Promise<DownloadClientConfig> {
+		return this.request<DownloadClientConfig>("/config/downloadclient")
+	}
+
+	async updateDownloadClientConfig(config: DownloadClientConfig): Promise<DownloadClientConfig> {
+		return this.request<DownloadClientConfig>(`/config/downloadclient/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getImportListConfig(): Promise<ImportListConfig> {
+		return this.request<ImportListConfig>("/config/importlist")
+	}
+
+	async updateImportListConfig(config: ImportListConfig): Promise<ImportListConfig> {
+		return this.request<ImportListConfig>(`/config/importlist/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
+	}
+
+	async getUiConfig(): Promise<UiConfig> {
+		return this.request<UiConfig>("/config/ui")
+	}
+
+	async updateUiConfig(config: UiConfig): Promise<UiConfig> {
+		return this.request<UiConfig>(`/config/ui/${config.id}`, {
+			method: "PUT",
+			body: JSON.stringify(config),
+		})
 	}
 }

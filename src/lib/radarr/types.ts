@@ -124,3 +124,117 @@ export interface PaginatedResponse<T> {
 	totalRecords: number
 	records: T[]
 }
+
+// Config types
+
+export interface NamingConfig {
+	id: number
+	renameMovies: boolean
+	replaceIllegalCharacters: boolean
+	colonReplacementFormat: "delete" | "dash" | "spaceDash" | "spaceDashSpace" | "smart"
+	standardMovieFormat: string
+	movieFolderFormat: string
+}
+
+export interface MediaManagementConfig {
+	id: number
+	autoUnmonitorPreviouslyDownloadedMovies: boolean
+	recycleBin: string
+	recycleBinCleanupDays: number
+	downloadPropersAndRepacks: "preferAndUpgrade" | "doNotUpgrade" | "doNotPrefer"
+	createEmptyMovieFolders: boolean
+	deleteEmptyFolders: boolean
+	fileDate: "none" | "cinemas" | "release"
+	rescanAfterRefresh: "always" | "afterManual" | "never"
+	autoRenameFolders: boolean
+	setPermissionsLinux: boolean
+	chmodFolder: string
+	chownGroup: string
+	skipFreeSpaceCheckWhenImporting: boolean
+	minimumFreeSpaceWhenImporting: number
+	copyUsingHardlinks: boolean
+	useScriptImport: boolean
+	scriptImportPath: string
+	importExtraFiles: boolean
+	extraFileExtensions: string
+	enableMediaInfo: boolean
+}
+
+export interface HostConfig {
+	id: number
+	bindAddress: string
+	port: number
+	sslPort: number
+	enableSsl: boolean
+	urlBase: string
+	instanceName: string
+	applicationUrl: string
+	authenticationMethod: "none" | "basic" | "forms" | "external"
+	authenticationRequired: "enabled" | "disabledForLocalAddresses"
+	username: string
+	password: string
+	certificateValidation: "enabled" | "disabledForLocalAddresses" | "disabled"
+	proxyEnabled: boolean
+	proxyType: "http" | "socks4" | "socks5"
+	proxyHostname: string
+	proxyPort: number
+	proxyUsername: string
+	proxyPassword: string
+	proxyBypassFilter: string
+	proxyBypassLocalAddresses: boolean
+	logLevel: "info" | "debug" | "trace"
+	logSizeLimit: number
+	analyticsEnabled: boolean
+	branch: string
+	updateAutomatically: boolean
+	updateMechanism: "builtIn" | "script" | "external" | "apt" | "docker"
+	updateScriptPath: string
+	backupFolder: string
+	backupInterval: number
+	backupRetention: number
+	launchBrowser: boolean
+	apiKey: string
+	sslCertPath: string
+	sslCertPassword: string
+	consoleLogLevel: string
+}
+
+export interface IndexerConfig {
+	id: number
+	minimumAge: number
+	retention: number
+	maximumSize: number
+	rssSyncInterval: number
+	preferIndexerFlags: boolean
+	availabilityDelay: number
+	allowHardcodedSubs: boolean
+	whitelistedHardcodedSubs: string
+}
+
+export interface DownloadClientConfig {
+	id: number
+	enableCompletedDownloadHandling: boolean
+	checkForFinishedDownloadInterval: number
+	autoRedownloadFailed: boolean
+	autoRedownloadFailedFromInteractiveSearch: boolean
+}
+
+export interface ImportListConfig {
+	id: number
+	listSyncLevel: "disabled" | "logOnly" | "keepAndUnmonitor" | "removeAndKeep" | "removeAndDelete"
+}
+
+export interface UiConfig {
+	id: number
+	firstDayOfWeek: number
+	calendarWeekColumnHeader: string
+	movieRuntimeFormat: "hoursMinutes" | "minutes"
+	shortDateFormat: string
+	longDateFormat: string
+	timeFormat: string
+	showRelativeDates: boolean
+	enableColorImpairedMode: boolean
+	movieInfoLanguage: number
+	uiLanguage: number
+	theme: "auto" | "dark" | "light"
+}

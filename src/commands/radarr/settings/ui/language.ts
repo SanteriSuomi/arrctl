@@ -1,0 +1,56 @@
+import { Command, Flags } from "@oclif/core"
+
+import { requireConfig } from "../../../../lib/config.js"
+import { RadarrClient } from "../../../../lib/radarr/client.js"
+
+export default class SettingsUiLanguage extends Command {
+	static description = "Language settings"
+
+	static examples = [
+		"<%= config.bin %> radarr settings ui language --movie-info-language 1",
+		"<%= config.bin %> radarr settings ui language --ui-language 1",
+	]
+
+	static flags = {
+		json: Flags.boolean({ description: "Output as JSON" }),
+		"movie-info-language": Flags.integer({ description: "Movie info language ID" }),
+		"ui-language": Flags.integer({ description: "UI language ID" }),
+	}
+
+	async run(): Promise<void> {
+		const { flags } = await this.parse(SettingsUiLanguage)
+		const config = requireConfig("radarr")
+		const client = new RadarrClient(config)
+
+		const current = await client.getUiConfig()
+
+		const hasChanges =
+			flags["movie-info-language"] !== undefined || flags["ui-language"] !== undefined
+
+		if (!hasChanges) {
+			if (flags.json) {
+				this.log(JSON.stringify(current, null, 2))
+			} else {
+				this.log("Use --help for usage information")
+			}
+			return
+		}
+
+		const updated = { ...current }
+
+		if (flags["movie-info-language"] !== undefined) {
+			updated.movieInfoLanguage = flags["movie-info-language"]
+		}
+		if (flags["ui-language"] !== undefined) {
+			updated.uiLanguage = flags["ui-language"]
+		}
+
+		const result = await client.updateUiConfig(updated)
+
+		if (flags.json) {
+			this.log(JSON.stringify(result, null, 2))
+		} else {
+			this.log("✓ Language settings updated (browser reload required)")
+		}
+	}
+}

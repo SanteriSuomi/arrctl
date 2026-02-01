@@ -12,8 +12,8 @@ describe("RadarrClient", () => {
 		vi.unstubAllGlobals()
 	})
 
-	const mockFetch = (data: any, status = 200) => {
-		;(global.fetch as any).mockResolvedValue({
+	const mockFetch = (data: unknown, status = 200) => {
+		;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
 			ok: status >= 200 && status < 300,
 			status,
 			statusText: status === 200 ? "OK" : "Error",
@@ -115,9 +115,10 @@ describe("RadarrClient", () => {
 	describe("deleteMovie", () => {
 		it("should DELETE movie with options", async () => {
 			const client = new RadarrClient(mockConfig)
-			;(global.fetch as any).mockResolvedValue({
+			;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
 				ok: true,
 				status: 204,
+				text: () => Promise.resolve(""),
 			})
 
 			await client.deleteMovie(123, { deleteFiles: true, addImportExclusion: true })
@@ -210,7 +211,7 @@ describe("RadarrClient", () => {
 	describe("error handling", () => {
 		it("should throw on non-ok response", async () => {
 			const client = new RadarrClient(mockConfig)
-			;(global.fetch as any).mockResolvedValue({
+			;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
 				ok: false,
 				status: 404,
 				statusText: "Not Found",
