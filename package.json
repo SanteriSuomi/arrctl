@@ -72,7 +72,10 @@
 		"prepack": "oclif manifest && oclif readme",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"version": "oclif readme && git add README.md"
+		"version": "oclif readme && git add README.md",
+		"dev:up": "docker compose up -d",
+		"dev:down": "docker compose down",
+		"dev:reset": "bash scripts/dev-reset.sh"
 	},
 	"types": "dist/index.d.ts"
 }

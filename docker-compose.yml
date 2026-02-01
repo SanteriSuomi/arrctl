@@ -1,0 +1,32 @@
+services:
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: arrctl-radarr-dev
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./dev/radarr/config:/config
+      - ./dev/media/movies:/movies
+      - ./dev/downloads:/downloads
+    ports:
+      - 8502:7878
+    restart: unless-stopped
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: arrctl-qbit-dev
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+    volumes:
+      - ./dev/qbittorrent/config:/config
+      - ./dev/downloads:/downloads
+    ports:
+      - 8506:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped

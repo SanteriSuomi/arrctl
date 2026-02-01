@@ -5,6 +5,7 @@
 /dist
 /tmp
 /node_modules
+/dev
 oclif.manifest.json
 
 
