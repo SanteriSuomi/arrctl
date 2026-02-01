@@ -1,66 +1,78 @@
 {
-  "name": "arrctl",
-  "description": "Unified *arr Stack CLI",
-  "version": "0.0.0",
-  "author": "Santeri Suomi",
-  "bin": {
-    "arrctl": "./bin/run.js"
-  },
-  "bugs": "https://github.com/arrctl/arrctl/issues",
-  "dependencies": {
-    "@oclif/core": "^4",
-    "@oclif/plugin-help": "^6",
-    "@oclif/plugin-plugins": "^5",
-    "conf": "15.0.2"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.3.13",
-    "@types/node": "^18",
-    "oclif": "^4",
-    "shx": "^0.3.3",
-    "typescript": "^5",
-    "vitest": "^4.0.18"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "files": [
-    "./bin",
-    "./dist",
-    "./oclif.manifest.json"
-  ],
-  "homepage": "https://github.com/arrctl/arrctl",
-  "keywords": [
-    "oclif"
-  ],
-  "license": "MIT",
-  "main": "dist/index.js",
-  "type": "module",
-  "oclif": {
-    "bin": "arrctl",
-    "dirname": "arrctl",
-    "commands": "./dist/commands",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
-    ],
-    "topicSeparator": " ",
-    "topics": {
-      "radarr": {
-        "description": "Manage Radarr"
-      }
-    }
-  },
-  "repository": "arrctl/arrctl",
-  "scripts": {
-    "build": "shx rm -rf dist && tsc -b",
-    "lint": "biome check",
-    "format": "biome check --write",
-    "postpack": "shx rm -f oclif.manifest.json",
-    "prepack": "oclif manifest && oclif readme",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "version": "oclif readme && git add README.md"
-  },
-  "types": "dist/index.d.ts"
+	"name": "arrctl",
+	"description": "Unified *arr Stack CLI",
+	"version": "0.0.0",
+	"author": "Santeri Suomi",
+	"bin": {
+		"arrctl": "./bin/run.js"
+	},
+	"bugs": "https://github.com/arrctl/arrctl/issues",
+	"dependencies": {
+		"@oclif/core": "^4",
+		"@oclif/plugin-help": "^6",
+		"@oclif/plugin-plugins": "^5",
+		"conf": "15.0.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.13",
+		"@types/node": "^18",
+		"oclif": "^4",
+		"shx": "^0.3.3",
+		"typescript": "^5",
+		"vitest": "^4.0.18"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"files": [
+		"./bin",
+		"./dist",
+		"./oclif.manifest.json"
+	],
+	"homepage": "https://github.com/arrctl/arrctl",
+	"keywords": [
+		"oclif"
+	],
+	"license": "MIT",
+	"main": "dist/index.js",
+	"type": "module",
+	"oclif": {
+		"bin": "arrctl",
+		"dirname": "arrctl",
+		"commands": "./dist/commands",
+		"plugins": [
+			"@oclif/plugin-help",
+			"@oclif/plugin-plugins"
+		],
+		"topicSeparator": " ",
+		"topics": {
+			"cache": {
+				"description": "Manage cache"
+			},
+			"radarr": {
+				"description": "Manage Radarr"
+			},
+			"radarr activity": {
+				"description": "View Radarr activity"
+			},
+			"radarr movies": {
+				"description": "Manage Radarr movies"
+			},
+			"radarr wanted": {
+				"description": "View Radarr wanted movies"
+			}
+		}
+	},
+	"repository": "arrctl/arrctl",
+	"scripts": {
+		"build": "shx rm -rf dist && tsc -b",
+		"lint": "biome check",
+		"format": "biome check --write --unsafe",
+		"postpack": "shx rm -f oclif.manifest.json",
+		"prepack": "oclif manifest && oclif readme",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"version": "oclif readme && git add README.md"
+	},
+	"types": "dist/index.d.ts"
 }

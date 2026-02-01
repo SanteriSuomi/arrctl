@@ -1,27 +1,27 @@
-import {Command, Flags} from '@oclif/core'
+import { Command, Flags } from "@oclif/core"
 
-import {setConfig} from '../../../lib/config.js'
+import { setConfig } from "../../../lib/config.js"
 
 export default class RadarrConfigSet extends Command {
-  static description = 'Configure Radarr connection'
+	static description = "Configure Radarr connection"
 
-  static examples = [
-    '<%= config.bin %> radarr config set --url http://localhost:7878 --api-key abc123',
-  ]
+	static examples = [
+		"<%= config.bin %> radarr config set --url http://localhost:7878 --api-key abc123",
+	]
 
-  static flags = {
-    'api-key': Flags.string({description: 'Radarr API key', required: true}),
-    url: Flags.string({description: 'Radarr URL', required: true}),
-  }
+	static flags = {
+		"api-key": Flags.string({ description: "Radarr API key", required: true }),
+		url: Flags.string({ description: "Radarr URL", required: true }),
+	}
 
-  async run(): Promise<void> {
-    const {flags} = await this.parse(RadarrConfigSet)
+	async run(): Promise<void> {
+		const { flags } = await this.parse(RadarrConfigSet)
 
-    setConfig('radarr', {
-      apiKey: flags['api-key'],
-      url: flags.url,
-    })
+		setConfig("radarr", {
+			apiKey: flags["api-key"],
+			url: flags.url,
+		})
 
-    this.log('Radarr configuration saved.')
-  }
+		this.log("Radarr configuration saved.")
+	}
 }

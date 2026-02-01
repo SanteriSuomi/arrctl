@@ -20,14 +20,15 @@
 			"recommended": true
 		}
 	},
-	"organizeImports": {
+	"assist": {
 		"enabled": true
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double",
 			"trailingCommas": "all",
-			"semicolons": "asNeeded"
+			"semicolons": "asNeeded",
+			"bracketSpacing": true
 		}
 	},
 	"overrides": [

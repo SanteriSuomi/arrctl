@@ -1,8 +1,8 @@
 export interface ArrConfig {
-  url: string
-  apiKey: string
+	url: string
+	apiKey: string
 }
 
 export interface AppConfig {
-  radarr?: ArrConfig
+	radarr?: ArrConfig
 }
